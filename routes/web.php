@@ -17,19 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-
 });
 
-Route::get('/test', [TestController::class, 'index']);
 
-Route::get('/user/create', [UserController::class, 'create']);
-
-Route::get('/user/all', [UserController::class, 'index']);
-Route::get('/user/update', [UserController::class, 'update']);
-Route::get('/user/delete', [UserController::class, 'delete']);
-
-// php artisan serve 
-// php artisan make controller ControllerName
-// php artisan migrate
+Route::get('/admin/user/all', [UserController::class, 'index'])->name('user.index');
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 
 

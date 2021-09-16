@@ -11,38 +11,43 @@
     <title>All Users</title>
   </head>
   <body>
-
-
-
     
 
+    <div class="container">
+        <h1 class="py-3">All Users list</h1>
+        <a href="{{ route('user.create') }}" class="btn btn-success mb-5">Create new</a>
 
-   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ route('user.index') }}">Users</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-   </div>
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Updated at</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
 
-  
+
+                @foreach ($users as $user)
+                <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $user->name }}</td>
+                  <td>{{ $user->email }}</td>
+                  <td>{{ $user->created_at->diffForHumans() }}</td>
+                  <td>{{ $user->updated_at->format('d/m/y') }}</td>
+                  <td>
+                      <a href="#" class="btn btn-info">Edit</a>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                  </td>
+                </tr>
+                @endforeach
+
+            </tbody>
+          </table>
+    </div>
 
 
 

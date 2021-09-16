@@ -7,45 +7,38 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     public function index()
     {
-        // $users = User::all();
-        // return $users;
-
-
-        // $output = User::all()->last();
-        // $output = User::orderBy('created_at', 'DESC')->take(1)->get();
-
-        $output = User::where('id', 3)->get();
-
-        return $output;
+        $users = User::all();
+        return view('user.index', compact('users'));
     }
 
     public function create()
     {
+        return view('user.create');
+    }
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'con_password' => 'required|same:password'
+        ],
+        [
+           'con_password.required' => 'The confirm password is required', 
+        ]);
+
+
         $user = new User();
-        $user->name = 'Nasrullah';
-        $user->email = 'test2@email.com';
-        $user->password = '1234';
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = md5($request->password);
 
         $user->save();
 
-    }
-
-
-    public function update()
-    {
-        $output = User::where('id', 3)->first();
-        $output->name = 'Mansur';
-        $output->save();
-
-        return $output;
-    }
-
-    public function delete()
-    {
-        $output = User::where('id', 3)->first();
-        $output->delete();
+        return redirect()->route('user.index');
     }
 }
