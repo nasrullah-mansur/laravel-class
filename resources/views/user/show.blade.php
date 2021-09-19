@@ -14,37 +14,27 @@
     
 
     <div class="container">
-        <h1 class="py-3">All Users list</h1>
+        <h1 class="py-3">Single User Info</h1>
         <a href="{{ route('user.create') }}" class="btn btn-success mb-5">Create new</a>
+        <a href="{{ route('user.index') }}" class="btn btn-success mb-5">All User</a>
 
         <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Created at</th>
                 <th scope="col">Updated at</th>
-                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
 
-
-                @foreach ($users as $user)
                 <tr>
-                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->created_at->diffForHumans() }}</td>
                   <td>{{ $user->updated_at->format('d/m/y') }}</td>
-                  <td>
-                      <a href="{{ route('user.show', $user->id) }}" class="btn btn-success">View</a>
-                      <a href="{{ route('user.edit', $user->id) }}" class="btn btn-info">Edit</a>
-                      <a onclick="return confirm('Are you sure???')" href="{{ route('user.delete', $user->id) }}" class="btn btn-danger">Delete</a>
-                  </td>
                 </tr>
-                @endforeach
 
             </tbody>
           </table>

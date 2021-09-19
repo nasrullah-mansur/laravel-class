@@ -14,16 +14,17 @@
     
 
     <div class="container">
-        <h1 class="py-3">Create new user</h1>
+        <h1 class="py-3">Update user</h1>
         <a href="{{ route('user.index') }}" class="btn btn-success mb-5">All User</a>
+
       
         
 
-        <form action="{{ route('user.store') }}" method="POST">
+        <form action="{{ route('user.update', $user->id) }}" method="POST">
             @csrf
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ old('name') }}">
+              <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ $user->name }}">
               @error ('name')
                   <span class="text-danger">{{ $errors->first('name') }}</span>
               @enderror
@@ -31,28 +32,11 @@
 
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ $user->email }}">
               @error ('email')
                   <span class="text-danger">{{ $errors->first('email') }}</span>
               @enderror
             </div>
-
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Password">
-              @error ('password')
-                  <span class="text-danger">{{ $errors->first('password') }}</span>
-              @enderror
-            </div>
-
-            <div class="form-group">
-              <label for="confirm">Confirm Password</label>
-              <input type="password" class="form-control" name="con_password" id="confirm" placeholder="Confirm Password">
-              @error ('con_password')
-                  <span class="text-danger">{{ $errors->first('con_password') }}</span>
-              @enderror
-            </div>
-
             
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>

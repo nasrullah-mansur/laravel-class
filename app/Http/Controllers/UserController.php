@@ -41,4 +41,46 @@ class UserController extends Controller
 
         return redirect()->route('user.index');
     }
+
+    public function show($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+        return view('user.show', compact('user'));
+    }
+
+
+    public function edit($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+        return view('user.edit', compact('user'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+       $user = User::where('id', $id)->firstOrFail();
+
+       $request->validate([
+           'name' => 'required',
+           'email' => 'required|email'
+       ]);
+
+       $user->name = $request->name;
+       $user->email = $request->email;
+
+       $user->save();
+
+       return redirect()->route('user.index');
+
+    }
+
+
+    public function delete($id)
+    {
+        $user = User::where('id', $id)->firstOrFail();
+
+        $user->delete();
+
+        return redirect()->route('user.index');
+    }
 }
